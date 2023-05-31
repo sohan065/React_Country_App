@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Countries from "../components/Countries";
+import Search from "./Search";
 
 const url = "https://restcountries.com/v3.1/all";
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, serError] = useState(null);
   const [countries, setCountries] = useState([]);
+  // const [filterCountry, setFilterCountry] = useState(countries);
 
   const fetchData = async (url) => {
     setIsLoading(true);
@@ -31,11 +33,18 @@ export default function Home() {
     );
     setCountries(filterCountry);
   };
+  const handleSearch = (name) => {
+    const filterCountry = countries.filter((country) => {
+      const countryName = country.name.common.toLowerCase();
+      return countryName.startsWith(name.toLowerCase());
+    });
+    setCountries(filterCountry);
+  };
   return (
     <>
       <h1>Country App</h1>
+      <Search onSearch={handleSearch} />
       {isLoading && <h1>Loading...</h1>}
-
       {error && <h1>{error.message}</h1>}
       {countries && (
         <Countries
