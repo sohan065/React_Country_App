@@ -7,7 +7,7 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, serError] = useState(null);
   const [countries, setCountries] = useState([]);
-  // const [filterCountry, setFilterCountry] = useState(countries);
+  const [searchCountry, setSearchCountry] = useState([]);
 
   const fetchData = async (url) => {
     setIsLoading(true);
@@ -34,11 +34,12 @@ export default function Home() {
     setCountries(filterCountry);
   };
   const handleSearch = (name) => {
+    setSearchCountry(null);
     const filterCountry = countries.filter((country) => {
       const countryName = country.name.common.toLowerCase();
       return countryName.startsWith(name.toLowerCase());
     });
-    setCountries(filterCountry);
+    setSearchCountry(filterCountry);
   };
   return (
     <>
