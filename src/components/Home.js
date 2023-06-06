@@ -47,12 +47,10 @@ export default function Home() {
       <Search onSearch={handleSearch} />
       {isLoading && <h1>Loading...</h1>}
       {error && <h1>{error.message}</h1>}
-      {countries && (
-        <Countries
-          countries={countries}
-          onRemoveCountry={handleRemoveCountry}
-        />
-      )}
+      <Countries
+        countries={searchCountry.length ? searchCountry : countries}
+        onRemoveCountry={handleRemoveCountry}
+      />
     </>
   );
 }
